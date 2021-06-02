@@ -16,7 +16,8 @@ import java.io.InputStream;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 import javax.validation.constraints.*;
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2021-06-02T11:28:03.427Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2021-06-02T11:48:07.454Z")
 public abstract class UserApiService {
     public abstract Response createUser(User createUser,SecurityContext securityContext) throws NotFoundException;
+    public abstract Response getUser(User createUser,SecurityContext securityContext) throws NotFoundException;
 }

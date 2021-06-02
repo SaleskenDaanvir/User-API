@@ -24,7 +24,7 @@ import javax.validation.Valid;
 /**
  * User
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2021-06-02T11:28:03.427Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2021-06-02T11:48:07.454Z")
 public class User   {
   @JsonProperty("id")
   private Long id = null;

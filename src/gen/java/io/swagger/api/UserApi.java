@@ -30,7 +30,7 @@ import javax.validation.constraints.*;
 
 
 @io.swagger.annotations.Api(description = "the user API")
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2021-06-02T11:28:03.427Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2021-06-02T11:48:07.454Z")
 public class UserApi  {
    private final UserApiService delegate;
 
@@ -76,5 +76,27 @@ public class UserApi  {
 ,@Context SecurityContext securityContext)
     throws NotFoundException {
         return delegate.createUser(createUser,securityContext);
+    }
+    @GET
+    
+    
+    @Produces({ "application/json" })
+    @io.swagger.annotations.ApiOperation(value = "Get user", notes = "Use this API to create a new user. Can be called from Super Admin Web App, Sales Manager Web App (User list page), User import page of sales manager integration workflow.", response = SaleskenResponse.class, tags={ "user", })
+    @io.swagger.annotations.ApiResponses(value = { 
+        @io.swagger.annotations.ApiResponse(code = 200, message = "results", response = SaleskenResponse.class),
+        
+        @io.swagger.annotations.ApiResponse(code = 404, message = "Manager not found", response = Void.class),
+        
+        @io.swagger.annotations.ApiResponse(code = 400, message = "Null Name or Email passed / Incorrect mobile number format / Uniqueness clause /  Enum clause", response = Void.class),
+        
+        @io.swagger.annotations.ApiResponse(code = 412, message = "License limit exceeded", response = Void.class),
+        
+        @io.swagger.annotations.ApiResponse(code = 403, message = "Auth token invalid/Auth token holder is not authorized", response = Void.class),
+        
+        @io.swagger.annotations.ApiResponse(code = 401, message = "Auth token not supplied", response = Void.class) })
+    public Response getUser(@ApiParam(value = "Created user object" ,required=true) User createUser
+,@Context SecurityContext securityContext)
+    throws NotFoundException {
+        return delegate.getUser(createUser,securityContext);
     }
 }
