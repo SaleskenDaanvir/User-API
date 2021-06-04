@@ -7,6 +7,7 @@ import io.swagger.api.factories.UserApiServiceFactory;
 import io.swagger.annotations.ApiParam;
 import io.swagger.jaxrs.*;
 
+import java.io.File;
 import io.swagger.model.SaleskenResponse;
 import io.swagger.model.User;
 
@@ -30,7 +31,7 @@ import javax.validation.constraints.*;
 
 
 @io.swagger.annotations.Api(description = "the user API")
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2021-06-02T11:52:36.230Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2021-06-04T07:39:02.596Z")
 public class UserApi  {
    private final UserApiService delegate;
 
@@ -56,7 +57,7 @@ public class UserApi  {
    }
 
     @POST
-    
+    @Path("/create")
     
     @Produces({ "application/json" })
     @io.swagger.annotations.ApiOperation(value = "Create user", notes = "Use this API to create a new user. Can be called from Super Admin Web App, Sales Manager Web App (User list page), User import page of sales manager integration workflow.", response = SaleskenResponse.class, tags={ "user", })
@@ -81,7 +82,36 @@ public class UserApi  {
     
     
     @Produces({ "application/json" })
-    @io.swagger.annotations.ApiOperation(value = "Get user", notes = "Use this API to create a new user. Can be called from Super Admin Web App, Sales Manager Web App (User list page), User import page of sales manager integration workflow.", response = SaleskenResponse.class, tags={ "user", })
+    @io.swagger.annotations.ApiOperation(value = "Get all user List", notes = "Use this API to get the user details with the help if email.Can be called from Super Admin Web App, Sales Manager Web App (User list page), User import page of sales manager integration workflow.", response = SaleskenResponse.class, tags={ "user", })
+    @io.swagger.annotations.ApiResponses(value = { 
+        @io.swagger.annotations.ApiResponse(code = 200, message = "success", response = SaleskenResponse.class) })
+    public Response getAllUser(@Context SecurityContext securityContext)
+    throws NotFoundException {
+        return delegate.getAllUser(securityContext);
+    }
+    @GET
+    @Path("/{id}")
+    
+    @Produces({ "application/json" })
+    @io.swagger.annotations.ApiOperation(value = "Get User by id", notes = "Use this API to get the user details with the help if user id.Can be called from Super Admin Web App, Sales Manager Web App (User list page), User import page of sales manager integration workflow.", response = SaleskenResponse.class, tags={ "user", })
+    @io.swagger.annotations.ApiResponses(value = { 
+        @io.swagger.annotations.ApiResponse(code = 200, message = "success", response = SaleskenResponse.class),
+        
+        @io.swagger.annotations.ApiResponse(code = 404, message = "Manager not found", response = Void.class),
+        
+        @io.swagger.annotations.ApiResponse(code = 403, message = "Auth token invalid/Auth token holder is not authorized", response = Void.class),
+        
+        @io.swagger.annotations.ApiResponse(code = 401, message = "Auth token not supplied", response = Void.class) })
+    public Response getUserById(@ApiParam(value = "Get user by Id",required=true) @PathParam("id") Integer id
+,@Context SecurityContext securityContext)
+    throws NotFoundException {
+        return delegate.getUserById(id,securityContext);
+    }
+    @POST
+    @Path("/update/{id}")
+    
+    @Produces({ "application/json" })
+    @io.swagger.annotations.ApiOperation(value = "Update user", notes = "Use this API to update the user. Can be called from Super Admin Web App, Sales Manager Web App (User list page), User import page of sales manager integration workflow.", response = SaleskenResponse.class, tags={ "user", })
     @io.swagger.annotations.ApiResponses(value = { 
         @io.swagger.annotations.ApiResponse(code = 200, message = "results", response = SaleskenResponse.class),
         
@@ -94,9 +124,34 @@ public class UserApi  {
         @io.swagger.annotations.ApiResponse(code = 403, message = "Auth token invalid/Auth token holder is not authorized", response = Void.class),
         
         @io.swagger.annotations.ApiResponse(code = 401, message = "Auth token not supplied", response = Void.class) })
-    public Response getUser(@ApiParam(value = "Created user object" ,required=true) User createUser
+    public Response updateUser(@ApiParam(value = "Created user object" ,required=true) User updateUser
+,@ApiParam(value = "Update user object",required=true) @PathParam("id") Integer id
 ,@Context SecurityContext securityContext)
     throws NotFoundException {
-        return delegate.getUser(createUser,securityContext);
+        return delegate.updateUser(updateUser,id,securityContext);
+    }
+    @POST
+    @Path("/create_bulk")
+    @Consumes({ "multipart/form-data" })
+    
+    @io.swagger.annotations.ApiOperation(value = "Create bulk users.", notes = "", response = Void.class, tags={ "user bulk", })
+    @io.swagger.annotations.ApiResponses(value = { 
+        @io.swagger.annotations.ApiResponse(code = 200, message = "Successfully created", response = Void.class),
+        
+        @io.swagger.annotations.ApiResponse(code = 400, message = "Invalid file format", response = Void.class),
+        
+        @io.swagger.annotations.ApiResponse(code = 404, message = "Manager not found", response = Void.class),
+        
+        @io.swagger.annotations.ApiResponse(code = 412, message = "License limit exceeded", response = Void.class),
+        
+        @io.swagger.annotations.ApiResponse(code = 403, message = "Auth token invalid/Auth token holder is not authorized", response = Void.class),
+        
+        @io.swagger.annotations.ApiResponse(code = 401, message = "Auth token not supplied", response = Void.class) })
+    public Response userCreateBulkPost(
+            @FormDataParam("create multiple users") InputStream createMultipleUsersInputStream,
+            @FormDataParam("create multiple users") FormDataContentDisposition createMultipleUsersDetail
+,@Context SecurityContext securityContext)
+    throws NotFoundException {
+        return delegate.userCreateBulkPost(createMultipleUsersInputStream, createMultipleUsersDetail,securityContext);
     }
 }

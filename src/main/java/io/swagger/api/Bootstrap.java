@@ -15,13 +15,13 @@ public class Bootstrap extends HttpServlet {
   public void init(ServletConfig config) throws ServletException {
     Info info = new Info()
       .title("Swagger Server")
-      .description("This is a sample Petstore server.  You can find  out more about Swagger at  [http://swagger.io](http://swagger.io) or on  [irc.freenode.net, #swagger](http://swagger.io/irc/). ")
-      .termsOfService("http://swagger.io/terms/")
+      .description("Any Api's performed on User Level. ")
+      .termsOfService("")
       .contact(new Contact()
-        .email("apiteam@swagger.io"))
+        .email(""))
       .license(new License()
-        .name("Apache 2.0")
-        .url("http://www.apache.org/licenses/LICENSE-2.0.html"));
+        .name("")
+        .url("http://unlicense.org"));
 
     ServletContext context = config.getServletContext();
     Swagger swagger = new Swagger().info(info);
